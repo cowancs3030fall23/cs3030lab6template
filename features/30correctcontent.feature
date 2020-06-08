@@ -44,7 +44,7 @@ Feature: Output file contains correct information
 	Scenario: Script supports the FILEWORD command
 		Given a file named "filewordcmd" with:
 			"""
-			FILEWORD filelabel "words"
+			FILEWORD wordfilelabel "words"
 			"""
 		Given a file named "words" with:
 			"""
@@ -62,7 +62,7 @@ Feature: Output file contains correct information
 	Scenario: Script supports the FILEWORD command with true randomness
 		Given a file named "randomfilewordcmd" with:
 			"""
-			FILEWORD filelabel "randomwords"
+			FILEWORD randomwordlabel "randomwords"
 			STRING "\n"
 			"""
 		Given a file named "randomwords" with:
@@ -92,7 +92,7 @@ Feature: Output file contains correct information
 	Scenario: Script supports the NUMBER command with true randomness
 		Given a file named "randomnumbercmd" with:
 			"""
-			NUMBER numlabel 1 1999
+			NUMBER anothernumlabel 1 1999
 			STRING "\n"
 			"""
 		When I run `filemaker randomnumbercmd randomnumberoutput 5`
@@ -110,11 +110,11 @@ Feature: Output file contains correct information
 			"""
 		Given a file named "referfilewordcmd" with:
 			"""
-			FILEWORD flabel "morewords"
+			FILEWORD referlabel "morewords"
 			STRING " and "
-			REFER flabel
+			REFER referlabel
 			STRING " and "
-			REFER flabel
+			REFER referlabel
 			"""
 		When I run `filemaker referfilewordcmd referfilewordoutput 1`
 		Then the file "referfilewordoutput" should match /^(\w+) and \1 and \1$/
@@ -123,11 +123,11 @@ Feature: Output file contains correct information
 	Scenario: Script supports the REFER command to a label on a NUMBER command
 		Given a file named "refernumbercmd" with:
 			"""
-			NUMBER numlabel 1 99999
+			NUMBER somenum 1 99999
 			STRING " I said "
-			REFER numlabel
+			REFER somenum
 			STRING " I said "
-			REFER numlabel
+			REFER somenum
 			"""
 		When I run `filemaker refernumbercmd refernumberoutput 1`
 		Then the file "refernumberoutput" should match /^(\d+) I said \1 I said \1$/
