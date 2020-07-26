@@ -6,6 +6,7 @@ Feature: Output file contains correct information
 			STRING "testing 1 2 3\n"
 			"""
 		When I run `filemaker smallcmd smalloutput 3`
+        And OUTPUT is printed
 		Then the file "smalloutput" should contain:
 			"""
 			testing 1 2 3
@@ -21,6 +22,7 @@ Feature: Output file contains correct information
 			STRING "just a string\n"
 			"""
 		When I run `filemaker headercmd headeroutput 2`
+        And OUTPUT is printed
 		Then the file "headeroutput" should contain:
 			"""
 			This is a header	with an imbedded tab character
@@ -35,6 +37,7 @@ Feature: Output file contains correct information
 			STRING "yet another string\n"
 			"""
 		When I run `filemaker anotherstringcmd anotherstringoutput 3`
+        And OUTPUT is printed
 		Then the file "anotherstringoutput" should contain:
 			"""
 			yet another string
@@ -56,6 +59,7 @@ Feature: Output file contains correct information
 
 			"""
 		When I run `filemaker filewordcmd filewordoutput 1`
+        And OUTPUT is printed
 		Then the file "filewordoutput" should match /one|two|three|four|five/
 		Then 20 points are awarded
 
@@ -76,6 +80,8 @@ Feature: Output file contains correct information
 
 			"""
 		When I run `filemaker randomfilewordcmd randomfilewordoutput 5`
+        And OUTPUT is printed
+		Then the exit status should be 0
 		Then the file "randomfilewordoutput" should not match /(\w+)\n\1\n\1\n\1\n\1\n/
 		Then 20 points are awarded
 
@@ -86,6 +92,7 @@ Feature: Output file contains correct information
 			STRING "\n"
 			"""
 		When I run `filemaker numbercmd numberoutput 3`
+        And OUTPUT is printed
 		Then the file "numberoutput" should match /^\d+\n\d+\n\d+/
 		Then 20 points are awarded
 
@@ -96,6 +103,8 @@ Feature: Output file contains correct information
 			STRING "\n"
 			"""
 		When I run `filemaker randomnumbercmd randomnumberoutput 5`
+        And OUTPUT is printed
+		Then the exit status should be 0
 		Then the file "randomnumberoutput" should not match /(\d+)\n\1\n\1\n\1\n\1\n/
 		Then 20 points are awarded
 
@@ -117,6 +126,7 @@ Feature: Output file contains correct information
 			REFER referlabel
 			"""
 		When I run `filemaker referfilewordcmd referfilewordoutput 1`
+        And OUTPUT is printed
 		Then the file "referfilewordoutput" should match /^(\w+) and \1 and \1$/
 		Then 30 points are awarded
 
