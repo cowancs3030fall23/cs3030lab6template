@@ -140,6 +140,7 @@ Feature: Output file contains correct information
 			REFER somenum
 			"""
 		When I run `filemaker refernumbercmd refernumberoutput 1`
+        And OUTPUT is printed
 		Then the file "refernumberoutput" should match /^(\d+) I said \1 I said \1$/
 		Then 30 points are awarded
 
